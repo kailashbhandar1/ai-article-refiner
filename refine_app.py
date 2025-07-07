@@ -1,10 +1,11 @@
-
 import streamlit as st
 import openai
 import os
 
+# Get API key from Streamlit Secrets
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
+# Call OpenAI API
 def refine_article(prompt):
     try:
         response = openai.ChatCompletion.create(
@@ -17,7 +18,7 @@ def refine_article(prompt):
     except Exception as e:
         return f"❌ Error: {str(e)}"
 
-# Streamlit UI
+# Web App Interface
 st.set_page_config(page_title="AI Article Refiner", layout="wide")
 st.title("📝 AI Article Refiner")
 
@@ -47,7 +48,7 @@ Refine the following article:
 - Provide a meta title, meta description, and URL slug
 
 Article:
-"""{article_input}"""
+{article_input}
 """
 
             elif mode == "Refine + Add Missing Points":
@@ -60,7 +61,7 @@ Refine the following article:
 - Provide a meta title, meta description, URL slug, and 2-3 FAQs
 
 Article:
-"""{article_input}"""
+{article_input}
 """
 
             elif mode == "Refine + Use Provided Keywords":
@@ -75,7 +76,7 @@ Keywords:
 {keywords_input}
 
 Article:
-"""{article_input}"""
+{article_input}
 """
 
             else:  # All 3
@@ -91,7 +92,7 @@ Keywords:
 {keywords_input}
 
 Article:
-"""{article_input}"""
+{article_input}
 """
 
             output = refine_article(prompt)
